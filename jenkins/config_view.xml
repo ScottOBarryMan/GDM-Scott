@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<hudson.plugins.view.dashboard.Dashboard plugin="dashboard-view@2.12">
+  <name>Native</name>
+  <filterExecutors>false</filterExecutors>
+  <filterQueue>false</filterQueue>
+  <properties class="hudson.model.View$PropertyList"/>
+  <jobNames>
+    <comparator class="hudson.util.CaseInsensitiveComparator"/>
+  </jobNames>
+  <jobFilters/>
+  <columns>
+    <hudson.views.StatusColumn/>
+    <hudson.views.WeatherColumn/>
+    <hudson.views.JobColumn/>
+    <jenkins.branch.DescriptionColumn plugin="branch-api@2.5.4"/>
+    <hudson.views.LastSuccessColumn/>
+    <hudson.views.LastFailureColumn/>
+    <hudson.views.LastDurationColumn/>
+  </columns>
+  <recurse>false</recurse>
+  <useCssStyle>false</useCssStyle>
+  <includeStdJobList>true</includeStdJobList>
+  <hideJenkinsPanels>false</hideJenkinsPanels>
+  <leftPortletWidth>50%</leftPortletWidth>
+  <rightPortletWidth>50%</rightPortletWidth>
+  <leftPortlets>
+    <hudson.plugins.view.dashboard.stats.StatJobs>
+      <name>Job statistics</name>
+    </hudson.plugins.view.dashboard.stats.StatJobs>
+  </leftPortlets>
+  <rightPortlets>
+    <hudson.plugins.view.dashboard.core.UnstableJobsPortlet>
+      <name>Unstable Jobs</name>
+      <showOnlyFailedJobs>false</showOnlyFailedJobs>
+      <recurse>false</recurse>
+    </hudson.plugins.view.dashboard.core.UnstableJobsPortlet>
+  </rightPortlets>
+  <topPortlets>
+    <hudson.plugins.view.dashboard.builds.LatestBuilds>
+      <name>Latest builds</name>
+      <numBuilds>20</numBuilds>
+    </hudson.plugins.view.dashboard.builds.LatestBuilds>
+  </topPortlets>
+  <bottomPortlets/>
+</hudson.plugins.view.dashboard.Dashboard>

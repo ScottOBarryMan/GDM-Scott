@@ -1,0 +1,60 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Native Loader | Bulk Loader | AER | Scheme_Approval_Spatial | Triggers Nothing</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.chikli.hudson.plugin.naginator.NaginatorOptOutProperty plugin="naginator@1.18">
+      <optOut>false</optOut>
+    </com.chikli.hudson.plugin.naginator.NaginatorOptOutProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>Data_Currency</name>
+          <description>YYYY-MM-DD</description>
+          <defaultValue></defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.FileParameterDefinition>
+          <name>Scheme_Approval_Spatial_Data_SHP.zip</name>
+          <description></description>
+        </hudson.model.FileParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>\\olympus\FileVault\Native_Test\AER\Scheme_Approval_Spatial\Newfile</customWorkspace>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#xd;
+If not exist %WORKSPACE%\Scheme_Approval_Spatial_Data_SHP.zip (&#xd;
+ Echo Scheme_Approval_Spatial_Data_SHP.zip does not exist. Load terminated.&#xd;
+ Exit 1&#xd;
+)&#xd;
+&#xd;
+ren %WORKSPACE% %Data_Currency%&#xd;
+&#xd;
+powershell.exe -nologo -noprofile -command &quot;&amp; { Add-Type -A &apos;System.IO.Compression.FileSystem&apos;; [IO.Compression.ZipFile]::ExtractToDirectory(&apos;\\olympus\FileVault\Native_Test\AER\Scheme_Approval_Spatial\%Data_Currency%\Scheme_Approval_Spatial_Data_SHP.zip&apos;, &apos;\\olympus\FileVault\Native_Test\AER\Scheme_Approval_Spatial\%Data_Currency%\Scheme_Approval_Spatial_Data_SHP&apos;); }&quot;&#xd;
+&#xd;
+call activate base&#xd;
+python &quot;%PYTHON%\loaders\native\load_aer_shp_scheme_approval_spatial.py&quot; -f &quot;\\olympus\FileVault\Native_Test\AER\Scheme_Approval_Spatial\%Data_Currency%\Scheme_Approval_Spatial_Data_SHP&quot; -t &quot;t_AER_Scheme_Approval_Spatial_&quot;&#xd;
+        </command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
